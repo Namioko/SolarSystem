@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace SolarSystem
 {
-    public class SpaceObject
+    public abstract class SpaceObject
     {
         public double Mass { get; }
 

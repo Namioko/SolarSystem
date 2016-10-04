@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SolarSystem
 {
-    interface ICalculable
+    interface ICalculator
     {
         void CalculateCoordinates(int timeLapse);
     }

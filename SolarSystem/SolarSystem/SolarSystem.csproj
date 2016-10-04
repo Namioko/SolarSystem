@@ -41,13 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICalculable.cs" />
-    <Compile Include="Moon.cs" />
-    <Compile Include="SpaceConstants.cs" />
-    <Compile Include="SpaceObject.cs" />
-    <Compile Include="Planet.cs" />
+    <Compile Include="CoordinatesCalculation\ICalculator.cs" />
+    <Compile Include="ObjectsInSpace\CelestialBodyCollection.cs" />
+    <Compile Include="ObjectsInSpace\ICelestialBody.cs" />
+    <Compile Include="ObjectsInSpace\ISatellite.cs" />
+    <Compile Include="ObjectsInSpace\Moon.cs" />
+    <Compile Include="ObjectsInSpace\Rocket.cs" />
+    <Compile Include="CoordinatesCalculation\SpaceConstants.cs" />
+    <Compile Include="ObjectsInSpace\SpaceObject.cs" />
+    <Compile Include="ObjectsInSpace\Planet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CoordinatesCalculation\StandardCalculator.cs" />
+    <Compile Include="Visualisation\Visualizer.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SolarSystemDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
