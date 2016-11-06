@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using SolarSystem.ObjectsInSpace;
 
-using SolarSystem.SpaceConstants;
-
-namespace SolarSystem
+namespace SolarSystem.CoordinatesCalculation
 {
-    class StandardCalculator : ICalculator
+    public class StandardCalculator : ICalculator
     {
-        public void CalculateCoordinates(int timeLapse)
+        public Point CalculateCoordinates(double time, double monthsPerOneTurn, Orbit orbit)
         {
-            throw new NotImplementedException();
+            double angleFromTime = time * 2 * Math.PI / monthsPerOneTurn;
+            return new Point(int.Parse((orbit.BigSemiaxis * Math.Cos(angleFromTime)).ToString()),
+                int.Parse((orbit.SmallSemiaxis * Math.Sin(angleFromTime)).ToString()));
         }
     }
 }

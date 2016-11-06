@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SolarSystem.ObjectsInSpace;
+﻿using System.Collections.Generic;
 
-namespace SolarSystem
+namespace SolarSystem.ObjectsInSpace
 {
-    class Rocket : SpaceObject, ISatellite
+    class Rocket 
     {
         private List<ICelestialBody> observers;
         public void AddObserver(ICelestialBody c)
@@ -26,6 +21,10 @@ namespace SolarSystem
         public void RemoveObserver(ICelestialBody c)
         {
             observers.Remove(c);
+        }
+
+        public Rocket(string name, double mass, double speed, double acceleration, double radius) : base(name, mass, speed, acceleration, radius)
+        {
         }
     }
 }

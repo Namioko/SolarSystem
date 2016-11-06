@@ -1,29 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SolarSystem.ObjectsInSpace;
+﻿using SolarSystem.CoordinatesCalculation;
 
-namespace SolarSystem
+namespace SolarSystem.ObjectsInSpace
 {
-    public class Moon : SpaceObject, ICelestialBody
+    public class Moon : SpaceObject
     {
-        private Planet primaryPlanet;
-
-        public Moon(Planet primaryPlanet)
+        public Moon(string name, double mass, double speed, double acceleration, double radius, Orbit orbit, double monthsPerOneTurn, ICalculator calculator) : base(name, mass, speed, acceleration, radius, orbit, monthsPerOneTurn, calculator)
         {
-            this.primaryPlanet = primaryPlanet;
-        }
-
-        public void CalculateCoordinates(int timeLapse)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
         }
     }
 }

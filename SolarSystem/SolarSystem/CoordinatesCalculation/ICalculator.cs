@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
+using SolarSystem.ObjectsInSpace;
 
-namespace SolarSystem
+namespace SolarSystem.CoordinatesCalculation
 {
-    interface ICalculator
+    public interface ICalculator
     {
-        void CalculateCoordinates(int timeLapse);
+        Point CalculateCoordinates(double time, double monthsPerOneTurn, Orbit orbit);
     }
 }
