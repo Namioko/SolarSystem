@@ -22,9 +22,5 @@ namespace SolarSystem.ObjectsInSpace
         {
             observers.Remove(c);
         }
-
-        public Rocket(string name, double mass, double speed, double acceleration, double radius) : base(name, mass, speed, acceleration, radius)
-        {
-        }
     }
 }
