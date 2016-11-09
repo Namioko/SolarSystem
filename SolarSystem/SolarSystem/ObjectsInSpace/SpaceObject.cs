@@ -22,6 +22,16 @@ namespace SolarSystem.ObjectsInSpace
             _calculator = calculator;
         }
 
+        protected SpaceObject(string name, double mass, double radius, Orbit orbit, double monthsPerOneTurn, ICalculator calculator)
+        {
+            Name = name;
+            Mass = mass;
+            Radius = radius;
+            _orbit = orbit;
+            MonthsPerOneTurn = monthsPerOneTurn;
+            _calculator = calculator;
+        }
+
         public string Name { get; }
 
         public double Mass { get; }
