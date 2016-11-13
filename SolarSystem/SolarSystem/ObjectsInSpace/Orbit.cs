@@ -21,5 +21,11 @@ namespace SolarSystem.ObjectsInSpace
             SmallSemiaxis = bigSemiaxis * Math.Sqrt(1 - Math.Pow(eccentricity, 2));
             CenterSpacePoint = centerSpacePoint;
         }
+
+        public Orbit(double bigSemiaxis, double smallSemiaxis)
+        {
+            BigSemiaxis = bigSemiaxis;
+            SmallSemiaxis = smallSemiaxis;
+        }
     }
 }

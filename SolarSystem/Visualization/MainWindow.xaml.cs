@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using SolarSystem.CoordinatesCalculation;
@@ -15,6 +16,8 @@ namespace Visualization
 
         private SpaceObjectCollection system = new SpaceObjectCollection();
 
+        private Sun sun;
+
         private SolidColorBrush trajectoryBrush = new SolidColorBrush(Color.FromRgb(255,255,255));
 
         public MainWindow()
@@ -24,7 +27,7 @@ namespace Visualization
             Variables.MonthDurationInSecs = 0.5;
 
             #region Sun
-            var sun = new Sun(332940, new Point(canvasHalfHeight, canvasHalfHeight), 11 * Variables.RadiusScale);
+            sun = new Sun(332940, new Point(canvasHalfHeight, canvasHalfHeight), 11 * Variables.RadiusScale);
             var sunEllipse = new Ellipse
             {
                 Width = sun.Radius * 2,
@@ -156,13 +159,23 @@ namespace Visualization
                 Canvas.SetLeft(newEllipsePoint, o.Coordinates.X - newEllipsePoint.Width/2);
                 Canvas.SetBottom(newEllipsePoint, o.Coordinates.Y - newEllipsePoint.Width/2);
 
+                //Ellipse newTrajectory = new Ellipse();
+                //newTrajectory.Stroke = trajectoryBrush;
+                //newTrajectory.Width = ((Planet) o)._orbit.BigSemiaxis;
+                //newTrajectory.Height = ((Planet) o)._orbit.SmallSemiaxis;
+
+                //Canvas.SetLeft(newTrajectory, sun.Coordinates.X - sun.Radius);
+                //Canvas.SetBottom(newTrajectory, sun.Coordinates.Y - sun.Radius);
+
+                //spaceCanvas.Children.Add(newTrajectory);
+
                 Ellipse newTrajectoryPoint = new Ellipse();
                 newTrajectoryPoint.Fill = trajectoryBrush;
                 newTrajectoryPoint.Width = newEllipsePoint.Width / 10;
                 newTrajectoryPoint.Height = newEllipsePoint.Height / 10;
 
-                Canvas.SetLeft(newTrajectoryPoint, o.Coordinates.X - newTrajectoryPoint.Width/2);
-                Canvas.SetBottom(newTrajectoryPoint, o.Coordinates.Y - newTrajectoryPoint.Width/2);
+                Canvas.SetLeft(newTrajectoryPoint, o.Coordinates.X - newTrajectoryPoint.Width / 2);
+                Canvas.SetBottom(newTrajectoryPoint, o.Coordinates.Y - newTrajectoryPoint.Width / 2);
 
                 spaceCanvas.Children.Add(newTrajectoryPoint);
                 spaceCanvas.Children.Add(newEllipsePoint);
@@ -170,8 +183,31 @@ namespace Visualization
                 if (firstRound)
                     continue;
                 spaceCanvas.Children.RemoveAt(spaceCanvas.Children.Count - 17);
+
+                //spaceCanvas.Children.Add(newEllipsePoint);
+                //if (firstRound)
+                //    continue;
+                //spaceCanvas.Children.RemoveAt(spaceCanvas.Children.Count - 17);
             }
             firstRound = false;
+        }
+
+        const double ScaleRate = 2;
+        private void spaceCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            Canvas c = sender as Canvas;
+            ScaleTransform st = new ScaleTransform();
+            c.RenderTransform = st;
+            if (e.Delta > 0)
+            {
+                st.ScaleX *= ScaleRate;
+                st.ScaleY *= ScaleRate;
+            }
+            else
+            {
+                st.ScaleX /= ScaleRate;
+                st.ScaleY /= ScaleRate;
+            }
         }
     }
 }

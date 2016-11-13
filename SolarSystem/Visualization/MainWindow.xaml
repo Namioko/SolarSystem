@@ -7,18 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1000">
     <Grid RenderTransformOrigin="0.899,0.116">
-        <Canvas x:Name="spaceCanvas" Margin="0,0,200,0" Background="Black" Height="800" Grid.IsSharedSizeScope="True" Width="800">
-            <Button x:Name="startButton" Content="Start!" Canvas.Left="804" Canvas.Top="21" Width="170" RenderTransformOrigin="0.171,-0.039" Height="49" Click="startButton_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0"/>
-                        <TranslateTransform X="2.405" Y="-2.282"/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
-            <Button x:Name="stopButton" Content="Stop!" Height="49" Canvas.Left="804" Canvas.Top="100" Width="170" RenderTransformOrigin="0.595,-0.384" Click="stopButton_Click"/>
-        </Canvas>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Padding="0" OverridesDefaultStyle="True">
+            <Viewbox Grid.Row="1" HorizontalAlignment="Left"  MaxHeight="1000">
+            <Canvas x:Name="spaceCanvas" Margin="0,0,200,0" Background="Black" Height="800" Grid.IsSharedSizeScope="True" Width="800" MouseWheel="spaceCanvas_MouseWheel">
+
+            </Canvas>
+                </Viewbox>
+        </ScrollViewer>
+        <Button x:Name="startButton" Content="Start!" HorizontalAlignment="Left" Margin="881,67,0,0" VerticalAlignment="Top" Width="75" Click="startButton_Click"/>
+        <Button x:Name="stopButton" Content="Stop!" HorizontalAlignment="Left" Margin="881,140,0,0" VerticalAlignment="Top" Width="75" Click="stopButton_Click"/>
+        <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Left" Margin="881,257,0,0" VerticalAlignment="Top" Width="75"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="850,347,0,0" VerticalAlignment="Top" Width="118" SmallChange="0.01" SnapsToDevicePixels="True"/>
     </Grid>
 </Window>

@@ -6,7 +6,7 @@ namespace SolarSystem.ObjectsInSpace
 {
     public abstract class SpaceObject : ICelestialBody
     {
-        private readonly Orbit _orbit;
+        public readonly Orbit _orbit;
         private readonly ICalculator _calculator;
 
         protected SpaceObject(string name, double mass, double speed, double acceleration, 
