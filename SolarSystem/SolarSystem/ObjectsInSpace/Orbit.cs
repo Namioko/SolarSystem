@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace SolarSystem.ObjectsInSpace
 {
@@ -6,6 +7,7 @@ namespace SolarSystem.ObjectsInSpace
     {
         public double BigSemiaxis { get; }
         public double SmallSemiaxis { get; }
+        public Point CenterSpacePoint { get;}
 
         //public Orbit(double bigSemiaxis, double smallSemiaxis)
         //{
@@ -13,10 +15,11 @@ namespace SolarSystem.ObjectsInSpace
         //    SmallSemiaxis = smallSemiaxis;
         //}
 
-        public Orbit(double bigSemiaxis, double eccentricity)
+        public Orbit(double bigSemiaxis, double eccentricity, Point centerSpacePoint)
         {
             BigSemiaxis = bigSemiaxis;
             SmallSemiaxis = bigSemiaxis * Math.Sqrt(1 - Math.Pow(eccentricity, 2));
+            CenterSpacePoint = centerSpacePoint;
         }
     }
 }

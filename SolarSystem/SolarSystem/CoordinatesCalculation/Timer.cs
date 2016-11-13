@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Windows.Threading;
 using SolarSystem.ObjectsInSpace;
 
 namespace SolarSystem.CoordinatesCalculation
@@ -9,15 +9,14 @@ namespace SolarSystem.CoordinatesCalculation
     public class Timer
     {
         private List<SpaceObject> _spaceObjects;
-        public bool Stop { get; set; }
         public double TimePerMonth { get; set; }
-        private double _time = 0;
-        private Task _timeTask;
+        DispatcherTimer _timer = new DispatcherTimer();
+        Stopwatch _watch = new Stopwatch();
 
-        public Timer()
+        public Timer(double time)
         {
-            Stop = false;
-            _timeTask = new Task(CalculteTime);
+            TimePerMonth = time;
+            _spaceObjects = new List<SpaceObject>();
         }
 
         public void AddObject(SpaceObject obj)
@@ -30,24 +29,26 @@ namespace SolarSystem.CoordinatesCalculation
             _spaceObjects.Remove(obj);
         }
 
-        public void NotifyObjects()
+        public void NotifyObjects(object sender, EventArgs e)
         {
             foreach (var obj in _spaceObjects)
             {
-                obj.ChangePosition(_time);
+                obj.ChangePosition(_watch.Elapsed.TotalSeconds);
             }
         }
 
-        public void CalculteTime()
+        public void CalculateTime()
         {
-            while (!Stop)
-            {
-                NotifyObjects();
-                _timeTask.Wait(TimeSpan.FromSeconds(TimePerMonth));
-                _time++;
-                if (_time == 12.0)
-                    _time = 0.0;
-            }
+            _timer.Tick += NotifyObjects;
+            _timer.Interval = TimeSpan.FromSeconds(TimePerMonth);
+            _timer.Start();
+            _watch.Start();
+        }
+
+        public void StopCalculating()
+        {
+            _timer.Stop();
+            _watch.Stop();
         }
     }
 }

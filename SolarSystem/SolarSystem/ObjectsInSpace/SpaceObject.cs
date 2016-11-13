@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Drawing;
+using System.Windows;
 using SolarSystem.CoordinatesCalculation;
 
 namespace SolarSystem.ObjectsInSpace
@@ -48,7 +48,7 @@ namespace SolarSystem.ObjectsInSpace
 
         public virtual void ChangePosition(double time)
         {
-            Coordinates = _calculator.CalculateCoordinates(time, MonthsPerOneTurn, _orbit);
+            Coordinates = _calculator.CalculateCoordinates((time / Variables.MonthDurationInSecs) % MonthsPerOneTurn, MonthsPerOneTurn, _orbit);
         }
 
         public virtual void Update()

@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:Visualization"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1000">
-    <Grid>
-        <Canvas x:Name="spaceCanvas" Margin="0,0,200,0" Background="Black"/>
+    <Grid RenderTransformOrigin="0.899,0.116">
+        <Canvas x:Name="spaceCanvas" Margin="0,0,200,0" Background="Black" Height="800" Grid.IsSharedSizeScope="True" Width="800">
+            <Button x:Name="startButton" Content="Start!" Canvas.Left="804" Canvas.Top="21" Width="170" RenderTransformOrigin="0.171,-0.039" Height="49" Click="startButton_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform X="2.405" Y="-2.282"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button x:Name="stopButton" Content="Stop!" Height="49" Canvas.Left="804" Canvas.Top="100" Width="170" RenderTransformOrigin="0.595,-0.384" Click="stopButton_Click"/>
+        </Canvas>
     </Grid>
 </Window>

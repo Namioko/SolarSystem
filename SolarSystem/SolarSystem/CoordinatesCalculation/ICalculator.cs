@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using System.Windows;
 using SolarSystem.ObjectsInSpace;
 
 namespace SolarSystem.CoordinatesCalculation

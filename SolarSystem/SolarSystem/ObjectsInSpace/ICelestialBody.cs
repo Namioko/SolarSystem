@@ -1,6 +1,6 @@
 ﻿namespace SolarSystem.ObjectsInSpace
 {
-    interface ICelestialBody
+    public interface ICelestialBody
     {
         void Update();
     }
