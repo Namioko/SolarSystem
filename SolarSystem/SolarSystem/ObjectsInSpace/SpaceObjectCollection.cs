@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SolarSystem.ObjectsInSpace
 {
@@ -25,6 +26,11 @@ namespace SolarSystem.ObjectsInSpace
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable<SpaceObject>)_innerList).GetEnumerator();
+        }
+
+        public SpaceObject this[int i]
+        {
+            get { return _innerList.ElementAt(i); }
         }
     }
 }
