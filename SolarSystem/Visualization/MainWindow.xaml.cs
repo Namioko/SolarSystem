@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using SolarSystem.CoordinatesCalculation;
@@ -23,12 +22,13 @@ namespace Visualization
 
         public MainWindow()
         {
-            Variables.RadiusScale = 3;
-            var canvasHalfHeight = 400;
+            Variables.RadiusScale = 10;
+            Variables.RadiusOrbitScale = 100;
+            var canvasHalfHeight = 3100;
             Variables.MonthDurationInSecs = 1;
 
             #region Sun
-            sun = new Sun(332940, new Point(canvasHalfHeight, canvasHalfHeight), 11 * Variables.RadiusScale);
+            sun = new Sun(332940, new Point(canvasHalfHeight, canvasHalfHeight), 10.91);
             var sunEllipse = new Ellipse
             {
                 Width = sun.Radius * 2,
@@ -44,49 +44,49 @@ namespace Visualization
             #endregion
 
             #region Earth
-            var earth = new Planet("Earth", 59.8, sun.Radius / 4, new Orbit(1 * 100, 0.017, sun.Coordinates), 12, new StandardCalculator());
+            var earth = new Planet("Earth", 59.8, Variables.RadiusScale, new Orbit(1 * Variables.RadiusOrbitScale, 0.017, sun.Coordinates), 12, new StandardCalculator());
             var earthBrush = new SolidColorBrush { Color = Color.FromArgb(255, 0, 255, 255) };
             SettingPlanetOnCanvas(earth, earthBrush);
             #endregion
 
             #region Mercury
-            var mercury = new Planet("Mercury", 3.3, sun.Radius / 4, new Orbit(0.3871 * 100, 0.205, sun.Coordinates), 2.9, new StandardCalculator());
+            var mercury = new Planet("Mercury", 3.3, 0.38 * Variables.RadiusScale, new Orbit(0.3871 * Variables.RadiusOrbitScale, 0.205, sun.Coordinates), 2.9, new StandardCalculator());
             var mercuryBrush = new SolidColorBrush {Color = Color.FromArgb(255, 95, 54, 65)};
             SettingPlanetOnCanvas(mercury, mercuryBrush);
             #endregion
 
             #region Venus
-            var venus = new Planet("Venus", 49, sun.Radius / 4, new Orbit(0.7233 * 100, 0.007, sun.Coordinates), 7.49, new StandardCalculator());
+            var venus = new Planet("Venus", 49, 0.72 * Variables.RadiusScale, new Orbit(0.7233 * Variables.RadiusOrbitScale, 0.007, sun.Coordinates), 7.49, new StandardCalculator());
             var venusBrush = new SolidColorBrush { Color = Color.FromArgb(255, 189, 164, 166) };
             SettingPlanetOnCanvas(venus, venusBrush);
             #endregion
 
             #region Mars
-            var mars = new Planet("Mars", 6.44, sun.Radius / 4, new Orbit(1.5273 * 100, 0.094, sun.Coordinates), 22.9, new StandardCalculator());
+            var mars = new Planet("Mars", 6.44, 1.52 * Variables.RadiusScale, new Orbit(1.5273 * Variables.RadiusOrbitScale, 0.094, sun.Coordinates), 22.9, new StandardCalculator());
             var marsBrush = new SolidColorBrush { Color = Color.FromArgb(255, 174, 15, 2) };
             SettingPlanetOnCanvas(mars, marsBrush);
             #endregion
 
             #region Jupiter
-            var jupiter = new Planet("Jupiter", 19000, sun.Radius / 4, new Orbit(5.2028 * 100, 0.049, sun.Coordinates), 144.3, new StandardCalculator());
+            var jupiter = new Planet("Jupiter", 19000, 5.20 * Variables.RadiusScale, new Orbit(5.2028 * Variables.RadiusOrbitScale, 0.049, sun.Coordinates), 144.3, new StandardCalculator());
             var jupiterBrush = new SolidColorBrush { Color = Color.FromArgb(255, 95, 54, 44) };
             SettingPlanetOnCanvas(jupiter, jupiterBrush);
             #endregion
 
             #region Saturn
-            var saturn = new Planet("Saturn", 5680, sun.Radius / 4, new Orbit(9.5388 * 100, 0.057, sun.Coordinates), 358.4, new StandardCalculator());
+            var saturn = new Planet("Saturn", 5680, 9.54 * Variables.RadiusScale, new Orbit(9.5388 * Variables.RadiusOrbitScale, 0.057, sun.Coordinates), 358.4, new StandardCalculator());
             var saturnBrush = new SolidColorBrush { Color = Color.FromArgb(255, 86, 75, 52) };
             SettingPlanetOnCanvas(saturn, saturnBrush);
             #endregion
 
             #region Uranus
-            var uranus = new Planet("Uranus", 870, sun.Radius / 4, new Orbit(19.1914 * 100, 0.046, sun.Coordinates), 1022, new StandardCalculator());
+            var uranus = new Planet("Uranus", 870, 19.22 * Variables.RadiusScale, new Orbit(19.1914 * Variables.RadiusOrbitScale, 0.046, sun.Coordinates), 1022, new StandardCalculator());
             var uranusBrush = new SolidColorBrush { Color = Color.FromArgb(255, 52, 131, 226) };
             SettingPlanetOnCanvas(uranus, uranusBrush);
             #endregion
 
             #region Neptune
-            var neptune = new Planet("Neptune", 1030, sun.Radius / 4, new Orbit(30.0611 * 100, 0.011, sun.Coordinates), 2005, new StandardCalculator());
+            var neptune = new Planet("Neptune", 1030, 30.06 * Variables.RadiusScale, new Orbit(30.0611 * Variables.RadiusOrbitScale, 0.011, sun.Coordinates), 2005, new StandardCalculator());
             var neptuneBrush = new SolidColorBrush { Color = Color.FromArgb(255, 36, 47, 251) };
             SettingPlanetOnCanvas(neptune, neptuneBrush);
             #endregion
@@ -102,13 +102,16 @@ namespace Visualization
 
             InitializeComponent();
 
+            var ticks = new DoubleCollection { 0.01, 5 };
+            slider.Ticks = ticks;
+
             spaceCanvas.Children.Add(sunEllipse);
             //foreach (Planet o in system)
             //{
             //    spaceCanvas.Children.Add(o.PlanetEllipse);
             //}
         }
-
+        
         private void SettingPlanetOnCanvas(Planet planet, SolidColorBrush brushForPlanet)
         {
             var planetEllipse = new Ellipse()
@@ -129,12 +132,14 @@ namespace Visualization
         private bool rendering = false;
         private bool firstRound = true;
         private bool isTrajectoryByPoints = false;
+        private bool isTrajectoryOn = true;
 
         private void startButton_Click(object sender, RoutedEventArgs e)
         {
             if (!rendering)
             {
-                trajectoryCheckBox.IsEnabled = false;
+                //trajectoryCheckBox.IsEnabled = false;
+                showTrajectoryCheckBox.Visibility = Visibility.Hidden;
                 CompositionTarget.Rendering += RenderFrame;
                 rendering = true;
                 for (int i = 0; i < system.Count(); i++)
@@ -152,17 +157,14 @@ namespace Visualization
             //firstRound = true;
             CompositionTarget.Rendering -= RenderFrame;
             rendering = false;
-            timer.StopCalculating(); /* если это убрать, он не с рандомного места начинает 
-                заново планеты крутить при старте, а по невыключенным часам смотрит время, и 
-                получается, что просто для планет не высчитываются новые координаты, но 
-                "время" в системе идёт */
+            timer.StopCalculating();
             timer = new Timer(Variables.MonthDurationInSecs);
             //trajectoryCheckBox.IsEnabled = true;
         }
 
         private void RenderFrame(object sender, EventArgs e)
         {
-            if(!isTrajectoryByPoints && firstRound)
+            if(!isTrajectoryByPoints && firstRound && isTrajectoryOn)
                 foreach (var o in system)
                 {
                     DrawTrajectoryByEllipse(o);
@@ -222,25 +224,7 @@ namespace Visualization
 
             spaceCanvas.Children.Add(newTrajectory);
         }
-
-        const double ScaleRate = 2;
-        private void spaceCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            Canvas c = sender as Canvas;
-            ScaleTransform st = new ScaleTransform();
-            c.RenderTransform = st;
-            if (e.Delta > 0)
-            {
-                st.ScaleX *= ScaleRate;
-                st.ScaleY *= ScaleRate;
-            }
-            else
-            {
-                st.ScaleX /= ScaleRate;
-                st.ScaleY /= ScaleRate;
-            }
-        }
-
+        
         private void pauseButton_Click(object sender, RoutedEventArgs e)
         {
             CompositionTarget.Rendering -= RenderFrame;
@@ -256,6 +240,44 @@ namespace Visualization
         private void trajectoryCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             isTrajectoryByPoints = false;
+        }
+
+        const double ScaleRate = 5;
+        private bool isZoomed = true;
+        private void zoomButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            ScaleTransform st = new ScaleTransform();
+            spaceCanvas.RenderTransform = st;
+            if (isZoomed)
+            {
+                mainWindow.Height /= ScaleRate;
+                mainWindow.Width /= ScaleRate;
+                st.ScaleX /= ScaleRate;
+                st.ScaleY /= ScaleRate;
+                isZoomed = false;
+            }
+            else
+            {
+                mainWindow.Height *= ScaleRate;
+                mainWindow.Width *= ScaleRate;
+                spaceCanvas.RenderTransform = null;
+                isZoomed = true;
+            }
+        }
+
+        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Variables.MonthDurationInSecs = e.NewValue;
+        }
+
+        private void showTrajectoryCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            isTrajectoryOn = true;
+        }
+
+        private void showTrajectoryCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            isTrajectoryOn = false;
         }
     }
 }

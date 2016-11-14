@@ -1,23 +1,26 @@
-﻿<Window x:Class="Visualization.MainWindow"
+﻿<Window x:Name="mainWindow" x:Class="Visualization.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Visualization"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000">
-    <Grid RenderTransformOrigin="0.899,0.116">
-        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Padding="0" OverridesDefaultStyle="True">
+        Title="MainWindow" Height="6200" Width="6200">
+    <Grid x:Name="spaceGrid" Background="Black">
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" OverridesDefaultStyle="True">
             <!--<Viewbox Grid.Row="1" HorizontalAlignment="Left"  MaxHeight="1000">-->
-            <Canvas x:Name="spaceCanvas" Margin="0,0,200,0" Background="Black" Height="800" Grid.IsSharedSizeScope="True" Width="800" MouseWheel="spaceCanvas_MouseWheel" ScrollViewer.CanContentScroll="True">
-
-            </Canvas>
-                <!--</Viewbox>-->
+            <Canvas x:Name="spaceCanvas" Height="6200" Grid.IsSharedSizeScope="True" Width="6200" ScrollViewer.CanContentScroll="True" Background="Black"/>
+            <!--</Viewbox>-->
         </ScrollViewer>
-        <Button x:Name="startButton" Content="Start!" HorizontalAlignment="Right" Margin="0,50,50,0" VerticalAlignment="Top" Width="75" Click="startButton_Click" Padding="10,1,1,1"/>
-        <Button x:Name="stopButton" Content="Stop!" HorizontalAlignment="Right" Margin="0,150,50,0" VerticalAlignment="Top" Width="75" Click="stopButton_Click"/>
-        <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Right" Margin="0,250,50,0" VerticalAlignment="Top" Width="75" Click="pauseButton_Click"/>
-        <Slider x:Name="slider" HorizontalAlignment="Right" Margin="0,350,25,0" VerticalAlignment="Top" Width="118" SmallChange="0.01" SnapsToDevicePixels="True"/>
-        <CheckBox x:Name="trajectoryCheckBox" Content="Draw trajectory by points" HorizontalAlignment="Right" Margin="0,450,25,0" VerticalAlignment="Top" Checked="trajectoryCheckBox_Checked" Unchecked="trajectoryCheckBox_Unchecked"/>
+        <GroupBox x:Name="groupBox" Header="" HorizontalAlignment="Right" Margin="0,50,50,0" VerticalAlignment="Top" Height="493" Width="200">
+            <Grid HorizontalAlignment="Left" Height="473" VerticalAlignment="Top" Width="200" Margin="0,0,-12,-2">
+                <Button x:Name="startButton" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="startButton_Click" Margin="0,20,60,0"/>
+                <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Right" Margin="0,80,60,0" VerticalAlignment="Top" Width="75" Click="pauseButton_Click"/>
+                <Slider x:Name="slider" HorizontalAlignment="Right" Margin="0,155,40,0" VerticalAlignment="Top" Width="118" SmallChange="0.01" SnapsToDevicePixels="True" ValueChanged="slider_ValueChanged" RenderTransformOrigin="0.5,0.5" Minimum="0.01" TickPlacement="BottomRight" TickFrequency="0.01" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Maximum="5"/>
+                <Button x:Name="zoomButton" Content="Zoom" HorizontalAlignment="Right" Margin="0,205,80,0" VerticalAlignment="Top" Click="zoomButton_Clicked"/>
+                <Label x:Name="labelSlider" Content="Seconds per month:" HorizontalAlignment="Left" Margin="40,130,0,0" VerticalAlignment="Top" Width="118" Foreground="White"/>
+                <CheckBox x:Name="showTrajectoryCheckBox" Content="Show trajectory" HorizontalAlignment="Left" Margin="40,260,0,0" VerticalAlignment="Top" Width="118" Checked="showTrajectoryCheckBox_Checked" Unchecked="showTrajectoryCheckBox_Unchecked" IsChecked="True" Foreground="White"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>
