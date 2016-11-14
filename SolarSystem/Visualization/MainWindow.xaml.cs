@@ -17,6 +17,7 @@ namespace Visualization
         private SpaceObjectCollection system = new SpaceObjectCollection();
 
         private Sun sun;
+        //private Ellipse sunEllipse;
 
         private SolidColorBrush trajectoryBrush = new SolidColorBrush(Color.FromRgb(255,255,255));
 
@@ -24,7 +25,7 @@ namespace Visualization
         {
             Variables.RadiusScale = 3;
             var canvasHalfHeight = 400;
-            Variables.MonthDurationInSecs = 0.5;
+            Variables.MonthDurationInSecs = 1;
 
             #region Sun
             sun = new Sun(332940, new Point(canvasHalfHeight, canvasHalfHeight), 11 * Variables.RadiusScale);
@@ -36,6 +37,7 @@ namespace Visualization
 
             var sunBrush = new SolidColorBrush { Color = Color.FromArgb(255, 255, 255, 0) };
             sunEllipse.Fill = sunBrush;
+            sunEllipse.Name = "Sun";
 
             Canvas.SetLeft(sunEllipse, sun.Coordinates.X - sun.Radius);
             Canvas.SetBottom(sunEllipse, sun.Coordinates.Y - sun.Radius);
@@ -126,11 +128,13 @@ namespace Visualization
 
         private bool rendering = false;
         private bool firstRound = true;
+        private bool isTrajectoryByPoints = false;
 
         private void startButton_Click(object sender, RoutedEventArgs e)
         {
             if (!rendering)
             {
+                trajectoryCheckBox.IsEnabled = false;
                 CompositionTarget.Rendering += RenderFrame;
                 rendering = true;
                 for (int i = 0; i < system.Count(); i++)
@@ -143,53 +147,80 @@ namespace Visualization
 
         private void stopButton_Click(object sender, RoutedEventArgs e)
         {
+            //spaceCanvas.Children.Clear();
+            //spaceCanvas.Children.Add(sunEllipse);
+            //firstRound = true;
             CompositionTarget.Rendering -= RenderFrame;
             rendering = false;
+            timer.StopCalculating(); /* если это убрать, он не с рандомного места начинает 
+                заново планеты крутить при старте, а по невыключенным часам смотрит время, и 
+                получается, что просто для планет не высчитываются новые координаты, но 
+                "время" в системе идёт */
+            timer = new Timer(Variables.MonthDurationInSecs);
+            //trajectoryCheckBox.IsEnabled = true;
         }
 
         private void RenderFrame(object sender, EventArgs e)
         {
+            if(!isTrajectoryByPoints && firstRound)
+                foreach (var o in system)
+                {
+                    DrawTrajectoryByEllipse(o);
+                }
+
             foreach (var o in system)
             {
                 Ellipse newEllipsePoint = new Ellipse();
                 newEllipsePoint.Fill = ((Planet)o).PlanetBrush;
-                newEllipsePoint.Width = ((Planet) o).PlanetEllipse.Width;
+                newEllipsePoint.Width = ((Planet)o).PlanetEllipse.Width;
                 newEllipsePoint.Height = ((Planet)o).PlanetEllipse.Height;
+                newEllipsePoint.Name = ((Planet) o).Name;
 
                 Canvas.SetLeft(newEllipsePoint, o.Coordinates.X - newEllipsePoint.Width/2);
                 Canvas.SetBottom(newEllipsePoint, o.Coordinates.Y - newEllipsePoint.Width/2);
 
-                //Ellipse newTrajectory = new Ellipse();
-                //newTrajectory.Stroke = trajectoryBrush;
-                //newTrajectory.Width = ((Planet) o)._orbit.BigSemiaxis;
-                //newTrajectory.Height = ((Planet) o)._orbit.SmallSemiaxis;
-
-                //Canvas.SetLeft(newTrajectory, sun.Coordinates.X - sun.Radius);
-                //Canvas.SetBottom(newTrajectory, sun.Coordinates.Y - sun.Radius);
-
-                //spaceCanvas.Children.Add(newTrajectory);
-
-                Ellipse newTrajectoryPoint = new Ellipse();
-                newTrajectoryPoint.Fill = trajectoryBrush;
-                newTrajectoryPoint.Width = newEllipsePoint.Width / 10;
-                newTrajectoryPoint.Height = newEllipsePoint.Height / 10;
-
-                Canvas.SetLeft(newTrajectoryPoint, o.Coordinates.X - newTrajectoryPoint.Width / 2);
-                Canvas.SetBottom(newTrajectoryPoint, o.Coordinates.Y - newTrajectoryPoint.Width / 2);
-
-                spaceCanvas.Children.Add(newTrajectoryPoint);
-                spaceCanvas.Children.Add(newEllipsePoint);
-
-                if (firstRound)
-                    continue;
-                spaceCanvas.Children.RemoveAt(spaceCanvas.Children.Count - 17);
-
-                //spaceCanvas.Children.Add(newEllipsePoint);
-                //if (firstRound)
-                //    continue;
-                //spaceCanvas.Children.RemoveAt(spaceCanvas.Children.Count - 17);
+                if (isTrajectoryByPoints)
+                    DrawTrajectoryByPoints(newEllipsePoint, o);
+                else
+                {
+                    spaceCanvas.Children.Add(newEllipsePoint);
+                    if (!firstRound)
+                        spaceCanvas.Children.RemoveAt(spaceCanvas.Children.Count - 9);
+                }
             }
+
             firstRound = false;
+        }
+
+        private void DrawTrajectoryByPoints(Ellipse newEllipsePoint, SpaceObject o)
+        {
+            Ellipse newTrajectoryPoint = new Ellipse();
+            newTrajectoryPoint.Fill = trajectoryBrush;
+            newTrajectoryPoint.Width = newEllipsePoint.Width/10;
+            newTrajectoryPoint.Height = newEllipsePoint.Height/10;
+
+            Canvas.SetLeft(newTrajectoryPoint, o.Coordinates.X - newTrajectoryPoint.Width/2);
+            Canvas.SetBottom(newTrajectoryPoint, o.Coordinates.Y - newTrajectoryPoint.Width/2);
+
+            spaceCanvas.Children.Add(newTrajectoryPoint);
+            spaceCanvas.Children.Add(newEllipsePoint);
+
+            if (firstRound)
+                return;
+            spaceCanvas.Children.RemoveAt(spaceCanvas.Children.Count - 17);
+        }
+
+        private void DrawTrajectoryByEllipse(SpaceObject o)
+        {
+            Ellipse newTrajectory = new Ellipse();
+            newTrajectory.Stroke = trajectoryBrush;
+            newTrajectory.Width = ((Planet) o)._orbit.BigSemiaxis*2;
+            newTrajectory.Height = ((Planet) o)._orbit.SmallSemiaxis*2;
+
+            Canvas.SetLeft(newTrajectory, sun.Coordinates.X - newTrajectory.Width/2);
+            Canvas.SetBottom(newTrajectory, sun.Coordinates.Y - newTrajectory.Height/2);
+
+            spaceCanvas.Children.Add(newTrajectory);
         }
 
         const double ScaleRate = 2;
@@ -208,6 +239,23 @@ namespace Visualization
                 st.ScaleX /= ScaleRate;
                 st.ScaleY /= ScaleRate;
             }
+        }
+
+        private void pauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            CompositionTarget.Rendering -= RenderFrame;
+            rendering = false;
+            timer.StopCalculating();
+        }
+
+        private void trajectoryCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            isTrajectoryByPoints = true;
+        }
+
+        private void trajectoryCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            isTrajectoryByPoints = false;
         }
     }
 }

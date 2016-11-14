@@ -8,15 +8,16 @@
         Title="MainWindow" Height="800" Width="1000">
     <Grid RenderTransformOrigin="0.899,0.116">
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Padding="0" OverridesDefaultStyle="True">
-            <Viewbox Grid.Row="1" HorizontalAlignment="Left"  MaxHeight="1000">
-            <Canvas x:Name="spaceCanvas" Margin="0,0,200,0" Background="Black" Height="800" Grid.IsSharedSizeScope="True" Width="800" MouseWheel="spaceCanvas_MouseWheel">
+            <!--<Viewbox Grid.Row="1" HorizontalAlignment="Left"  MaxHeight="1000">-->
+            <Canvas x:Name="spaceCanvas" Margin="0,0,200,0" Background="Black" Height="800" Grid.IsSharedSizeScope="True" Width="800" MouseWheel="spaceCanvas_MouseWheel" ScrollViewer.CanContentScroll="True">
 
             </Canvas>
-                </Viewbox>
+                <!--</Viewbox>-->
         </ScrollViewer>
-        <Button x:Name="startButton" Content="Start!" HorizontalAlignment="Left" Margin="881,67,0,0" VerticalAlignment="Top" Width="75" Click="startButton_Click"/>
-        <Button x:Name="stopButton" Content="Stop!" HorizontalAlignment="Left" Margin="881,140,0,0" VerticalAlignment="Top" Width="75" Click="stopButton_Click"/>
-        <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Left" Margin="881,257,0,0" VerticalAlignment="Top" Width="75"/>
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="850,347,0,0" VerticalAlignment="Top" Width="118" SmallChange="0.01" SnapsToDevicePixels="True"/>
+        <Button x:Name="startButton" Content="Start!" HorizontalAlignment="Right" Margin="0,50,50,0" VerticalAlignment="Top" Width="75" Click="startButton_Click" Padding="10,1,1,1"/>
+        <Button x:Name="stopButton" Content="Stop!" HorizontalAlignment="Right" Margin="0,150,50,0" VerticalAlignment="Top" Width="75" Click="stopButton_Click"/>
+        <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Right" Margin="0,250,50,0" VerticalAlignment="Top" Width="75" Click="pauseButton_Click"/>
+        <Slider x:Name="slider" HorizontalAlignment="Right" Margin="0,350,25,0" VerticalAlignment="Top" Width="118" SmallChange="0.01" SnapsToDevicePixels="True"/>
+        <CheckBox x:Name="trajectoryCheckBox" Content="Draw trajectory by points" HorizontalAlignment="Right" Margin="0,450,25,0" VerticalAlignment="Top" Checked="trajectoryCheckBox_Checked" Unchecked="trajectoryCheckBox_Unchecked"/>
     </Grid>
 </Window>

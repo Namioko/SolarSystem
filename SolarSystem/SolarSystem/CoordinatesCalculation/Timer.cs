@@ -10,13 +10,15 @@ namespace SolarSystem.CoordinatesCalculation
     {
         private List<SpaceObject> _spaceObjects;
         public double TimePerMonth { get; set; }
-        DispatcherTimer _timer = new DispatcherTimer();
-        Stopwatch _watch = new Stopwatch();
+        private DispatcherTimer _timer;
+        private Stopwatch _watch;
 
         public Timer(double time)
         {
             TimePerMonth = time;
             _spaceObjects = new List<SpaceObject>();
+            _timer = new DispatcherTimer();
+            _watch = new Stopwatch();
         }
 
         public void AddObject(SpaceObject obj)
