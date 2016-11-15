@@ -7,7 +7,7 @@ namespace SolarSystem.ObjectsInSpace
     {
         public double BigSemiaxis { get; }
         public double SmallSemiaxis { get; }
-        public Point CenterSpacePoint { get;}
+        public Point CenterSpacePoint { get; set; }
 
         //public Orbit(double bigSemiaxis, double smallSemiaxis)
         //{

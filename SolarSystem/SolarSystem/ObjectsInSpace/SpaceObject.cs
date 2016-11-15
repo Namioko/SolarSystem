@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using SolarSystem.CoordinatesCalculation;
 
 namespace SolarSystem.ObjectsInSpace
 {
     public abstract class SpaceObject : ICelestialBody
     {
-        public readonly Orbit _orbit;
+        public readonly Orbit Orbit;
+        public Ellipse ObjectEllipse { get; set; }
+        public SolidColorBrush ObjecttBrush { get; set; }
         private readonly ICalculator _calculator;
 
         protected SpaceObject(string name, double mass, double speed, double acceleration, 
@@ -17,7 +21,7 @@ namespace SolarSystem.ObjectsInSpace
             Speed = speed;
             Acceleration = acceleration;
             Radius = radius;
-            _orbit = orbit;
+            Orbit = orbit;
             MonthsPerOneTurn = monthsPerOneTurn;
             _calculator = calculator;
         }
@@ -27,7 +31,7 @@ namespace SolarSystem.ObjectsInSpace
             Name = name;
             Mass = mass;
             Radius = radius;
-            _orbit = orbit;
+            Orbit = orbit;
             MonthsPerOneTurn = monthsPerOneTurn;
             _calculator = calculator;
         }
@@ -48,7 +52,7 @@ namespace SolarSystem.ObjectsInSpace
 
         public virtual void ChangePosition(double time)
         {
-            Coordinates = _calculator.CalculateCoordinates((time / Variables.MonthDurationInSecs) % MonthsPerOneTurn, MonthsPerOneTurn, _orbit);
+            Coordinates = _calculator.CalculateCoordinates((time / Variables.MonthDurationInSecs) % MonthsPerOneTurn, MonthsPerOneTurn, Orbit);
         }
 
         public virtual void Update()
