@@ -8,10 +8,10 @@ namespace SolarSystem.CoordinatesCalculation
 {
     public class Timer
     {
-        private List<SpaceObject> _spaceObjects;
+        private readonly List<SpaceObject> _spaceObjects;
         public double TimePerMonth { get; set; }
-        private DispatcherTimer _timer;
-        private Stopwatch _watch;
+        private readonly DispatcherTimer _timer;
+        private readonly Stopwatch _watch;
 
         public Timer(double time)
         {

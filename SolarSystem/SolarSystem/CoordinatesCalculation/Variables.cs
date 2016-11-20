@@ -2,7 +2,7 @@
 {
     public static class Variables
     {
-        public static int RadiusScale { get; set; }
+        public static int EarthRadius { get; set; }
 
         public static int RadiusOrbitScale { get; set; }
         

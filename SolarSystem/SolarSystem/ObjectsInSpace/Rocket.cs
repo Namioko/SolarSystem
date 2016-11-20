@@ -2,17 +2,23 @@
 
 namespace SolarSystem.ObjectsInSpace
 {
-    class Rocket 
+    public class Rocket 
     {
-        private List<ICelestialBody> observers;
+        private readonly List<ICelestialBody> _observers;
+
+        public Rocket(List<ICelestialBody> observers)
+        {
+            _observers = observers;
+        }
+
         public void AddObserver(ICelestialBody c)
         {
-            observers.Add(c);
+            _observers.Add(c);
         }
 
         public void NotifyObservers()
         {
-            foreach (ICelestialBody c in observers)
+            foreach (var c in _observers)
             {
                 c.Update();
             }
@@ -20,7 +26,7 @@ namespace SolarSystem.ObjectsInSpace
 
         public void RemoveObserver(ICelestialBody c)
         {
-            observers.Remove(c);
+            _observers.Remove(c);
         }
     }
 }

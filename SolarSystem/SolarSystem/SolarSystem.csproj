@@ -48,13 +48,10 @@
     <Compile Include="CoordinatesCalculation\ICalculator.cs" />
     <Compile Include="CoordinatesCalculation\Timer.cs" />
     <Compile Include="CoordinatesCalculation\Variables.cs" />
-    <Compile Include="ObjectsInSpace\CelestialBodyCollection.cs" />
     <Compile Include="ObjectsInSpace\ICelestialBody.cs" />
-    <Compile Include="ObjectsInSpace\ISatellite.cs" />
     <Compile Include="ObjectsInSpace\Moon.cs" />
     <Compile Include="ObjectsInSpace\Orbit.cs" />
     <Compile Include="ObjectsInSpace\Rocket.cs" />
-    <Compile Include="CoordinatesCalculation\SpaceConstants.cs" />
     <Compile Include="ObjectsInSpace\SpaceObject.cs" />
     <Compile Include="ObjectsInSpace\Planet.cs" />
     <Compile Include="ObjectsInSpace\SpaceObjectCollection.cs" />

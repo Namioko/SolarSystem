@@ -9,12 +9,6 @@ namespace SolarSystem.ObjectsInSpace
         public double SmallSemiaxis { get; }
         public Point CenterSpacePoint { get; set; }
 
-        //public Orbit(double bigSemiaxis, double smallSemiaxis)
-        //{
-        //    BigSemiaxis = bigSemiaxis;
-        //    SmallSemiaxis = smallSemiaxis;
-        //}
-
         public Orbit(double bigSemiaxis, double eccentricity, Point centerSpacePoint)
         {
             BigSemiaxis = bigSemiaxis;

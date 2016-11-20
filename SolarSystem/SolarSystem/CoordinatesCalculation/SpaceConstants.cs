@@ -1,7 +1,0 @@
-﻿namespace SolarSystem
-{
-    class SpaceConstants
-    {
-
-    }
-}

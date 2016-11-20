@@ -6,12 +6,12 @@ namespace SolarSystem.ObjectsInSpace
 {
     public class SpaceObjectCollection : IEnumerable<SpaceObject>
     {
-            private List<SpaceObject> _innerList = new List<SpaceObject>();
+        private readonly List<SpaceObject> _innerList = new List<SpaceObject>();
 
-            public void AddBody(SpaceObject o)
-            {
-                _innerList.Add(o);
-            }
+        public void AddBody(SpaceObject o)
+        {
+            _innerList.Add(o);
+        }
 
         public void Clear()
         {
@@ -28,9 +28,6 @@ namespace SolarSystem.ObjectsInSpace
             return ((IEnumerable<SpaceObject>)_innerList).GetEnumerator();
         }
 
-        public SpaceObject this[int i]
-        {
-            get { return _innerList.ElementAt(i); }
-        }
+        public SpaceObject this[int i] => _innerList.ElementAt(i);
     }
 }
