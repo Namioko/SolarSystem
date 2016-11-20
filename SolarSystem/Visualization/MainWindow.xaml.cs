@@ -22,10 +22,10 @@ namespace Visualization
             InitializeComponent();
             Variables.EarthRadius = 10;
             Variables.RadiusOrbitScale = 100;
-            Variables.MonthDurationInSecs = 1;
+            zoomButton_Clicked(new object(), null);
             
             #region Sun
-            var sun = new Sun(332940, new Point(spaceCanvas.Width / 2 + 500, spaceCanvas.Height / 2 - 700), 14 * Variables.EarthRadius);
+            var sun = new Sun(332940, new Point(spaceCanvas.Width / 2 + spaceCanvas.Width / 8, spaceCanvas.Height / 2 - spaceCanvas.Height / 8), 14 * Variables.EarthRadius);
             var sunEllipse = new Ellipse
             {
                 Width = sun.Radius * 2,
@@ -89,21 +89,33 @@ namespace Visualization
             #endregion
 
             #region Moon
-            var moon = new Moon("Moon", 0.735, 1.16138017 * 0.1 * Variables.EarthRadius, new Orbit(0.00257 * earth.Orbit.BigSemiaxis + Variables.EarthRadius, 0.0549, earth.Coordinates), 0.91, new StandardCalculator(), earth);
+            var moon = new Moon("Moon", 0.735, 0.273 * Variables.EarthRadius, new Orbit(0.00257 * earth.Orbit.BigSemiaxis + earth.Radius, 0.0549, earth.Coordinates), 0.91, new StandardCalculator(), earth);
             var moonBrush = new SolidColorBrush { Color = Color.FromArgb(255, 133, 133, 133) };
             SettingObjectsOnCanvas(moon, moonBrush);
             #endregion
 
             #region Phobos
-            var phobos = new Moon("Phobos", 1.072 * 0.0000001, 1.72 * 0.1 * Variables.EarthRadius, new Orbit(6.27 * 0.01 * earth.Orbit.BigSemiaxis + Variables.EarthRadius, 0.0167, mars.Coordinates), 0.009, new StandardCalculator(), mars);
+            var phobos = new Moon("Phobos", 1.072 * 0.0000001, 0.006 * moon.Radius * 100, new Orbit(6.27 * 0.01 * earth.Orbit.BigSemiaxis + mars.Radius, 0.0167, mars.Coordinates), 0.009, new StandardCalculator(), mars);
             var phobosBrush = new SolidColorBrush { Color = Color.FromArgb(255, 133, 133, 133) };
             SettingObjectsOnCanvas(phobos, phobosBrush);
             #endregion
 
             #region Deimos
-            var deimos = new Moon("Deimos", 1.48 * 0.00000001, 1.72 * 0.1 * Variables.EarthRadius, new Orbit(7.23 * 0.01 * earth.Orbit.BigSemiaxis + Variables.EarthRadius, 0.0002, mars.Coordinates), 0.01, new StandardCalculator(), mars);
+            var deimos = new Moon("Deimos", 1.48 * 0.00000001, 0.004 * moon.Radius * 100, new Orbit(7.23 * 0.01 * earth.Orbit.BigSemiaxis + mars.Radius, 0.0002, mars.Coordinates), 0.01, new StandardCalculator(), mars);
             var deimosBrush = new SolidColorBrush { Color = Color.FromArgb(255, 133, 133, 133) };
             SettingObjectsOnCanvas(deimos, deimosBrush);
+            #endregion
+
+            #region Titan
+            var titan = new Moon("Titan", 1.3452 * Math.Pow(10, 23), 1.48 * moon.Radius, new Orbit(0.008 * earth.Orbit.BigSemiaxis + saturn.Radius, 0.0288, saturn.Coordinates), 0.514, new StandardCalculator(), saturn);
+            var titanBrush = new SolidColorBrush { Color = Color.FromArgb(255, 133, 133, 133) };
+            SettingObjectsOnCanvas(titan, titanBrush);
+            #endregion
+
+            #region Ganymede
+            var ganymede = new Moon("Ganymede", 1.4819 * Math.Pow(10, 23), 0.413 * earth.Radius, new Orbit(0.0071 * earth.Orbit.BigSemiaxis + jupiter.Radius, 0.0013, jupiter.Coordinates), 0.23, new StandardCalculator(), jupiter);
+            var ganymedeBrush = new SolidColorBrush { Color = Color.FromArgb(255, 133, 133, 133) };
+            SettingObjectsOnCanvas(ganymede, ganymedeBrush);
             #endregion
 
             _system.AddBody(mercury);
@@ -117,6 +129,8 @@ namespace Visualization
             _system.AddBody(moon);
             _system.AddBody(phobos);
             _system.AddBody(deimos);
+            _system.AddBody(titan);
+            _system.AddBody(ganymede);
             
             var ticks = new DoubleCollection { 0.01, 5 };
             slider.Ticks = ticks;
@@ -134,7 +148,7 @@ namespace Visualization
             };
 
             spaceObject.ObjectEllipse = planetEllipse;
-            spaceObject.ObjecttBrush = brushForPlanet;
+            spaceObject.ObjectBrush = brushForPlanet;
 
             spaceObject.ChangePosition(0);
             Canvas.SetLeft(planetEllipse, spaceObject.Coordinates.X - spaceObject.Radius);
@@ -170,7 +184,7 @@ namespace Visualization
             {
                 var newEllipsePoint = new Ellipse
                 {
-                    Fill = o.ObjecttBrush,
+                    Fill = o.ObjectBrush,
                     Width = o.ObjectEllipse.Width,
                     Height = o.ObjectEllipse.Height
                 };
@@ -180,7 +194,7 @@ namespace Visualization
                 
                 spaceCanvas.Children.Add(newEllipsePoint);
                 if (_firstRound) continue;
-                const int countOfObjectsWithoutSun = 8 + 3; //Planets + their moons
+                const int countOfObjectsWithoutSun = 8 + 5; //Planets + their moons
                 var moon = o as Moon;
                 if (moon != null)
                     moon.Orbit.CenterSpacePoint = moon.CentralObject.Coordinates;
@@ -228,8 +242,6 @@ namespace Visualization
             }
             else
             {
-                //st.ScaleX *= ScaleRate;
-                //st.ScaleY *= ScaleRate;
                 _isZoomed = true;
                 zoomButton.Content = "Zoom out";
                 spaceCanvas.Margin = new Thickness(0, 0, 0, 0);

@@ -5,19 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Visualization"
         mc:Ignorable="d"
-        Title="MainWindow" Height="5200" Width="4000">
-    <Grid x:Name="spaceGrid" Background="Black">
+        Title="MainWindow" Height="5200" Width="4000" WindowState="Maximized" WindowStartupLocation="Manual">
+    <Grid x:Name="spaceGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/space.png"/>
+        </Grid.Background>
         <ScrollViewer x:Name="spaceScroll" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" OverridesDefaultStyle="True">
             <Canvas x:Name="spaceCanvas" Height="5200" Grid.IsSharedSizeScope="True" Width="4000" ScrollViewer.CanContentScroll="True"/>
         </ScrollViewer>
         <GroupBox x:Name="groupBox" Header="" HorizontalAlignment="Right" Margin="0,50,50,0" VerticalAlignment="Top" Height="493" Width="200">
             <Grid HorizontalAlignment="Left" Height="473" VerticalAlignment="Top" Width="200" Margin="0,0,-12,-2">
-                <Button x:Name="startButton" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="startButton_Click" Margin="0,20,60,0"/>
-                <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Right" Margin="0,80,60,0" VerticalAlignment="Top" Width="75" Click="pauseButton_Click"/>
-                <Slider x:Name="slider" HorizontalAlignment="Right" Margin="0,155,40,0" VerticalAlignment="Top" Width="118" SmallChange="0.01" SnapsToDevicePixels="True" ValueChanged="slider_ValueChanged" RenderTransformOrigin="0.5,0.5" Minimum="0.5" TickPlacement="BottomRight" TickFrequency="0.01" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Maximum="5"/>
+                <Button x:Name="startButton" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="startButton_Click" Margin="0,20,65,0"/>
+                <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Right" Margin="0,80,65,0" VerticalAlignment="Top" Width="75" Click="pauseButton_Click"/>
+                <Slider x:Name="slider" HorizontalAlignment="Right" Margin="0,155,40,0" VerticalAlignment="Top" Width="120" SmallChange="0.01" SnapsToDevicePixels="True" ValueChanged="slider_ValueChanged" RenderTransformOrigin="0.5,0.5" Minimum="0.5" TickPlacement="BottomRight" TickFrequency="0.01" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Maximum="5"/>
                 <Button x:Name="zoomButton" Content="Zoom out" HorizontalAlignment="Right" Margin="0,205,80,0" VerticalAlignment="Top" Click="zoomButton_Clicked"/>
                 <Label x:Name="labelSlider" Content="Seconds per month:" HorizontalAlignment="Left" Margin="40,130,0,0" VerticalAlignment="Top" Width="118" Foreground="White"/>
-                <CheckBox x:Name="showTrajectoryCheckBox" Content="Show trajectory" HorizontalAlignment="Left" Margin="40,260,0,0" VerticalAlignment="Top" Width="118" Checked="showTrajectoryCheckBox_Checked" Unchecked="showTrajectoryCheckBox_Unchecked" IsChecked="True" Foreground="White"/>
+                <CheckBox x:Name="showTrajectoryCheckBox" HorizontalAlignment="Left" Margin="20,260,0,0" VerticalAlignment="Top" Width="150" Checked="showTrajectoryCheckBox_Checked" Unchecked="showTrajectoryCheckBox_Unchecked" IsChecked="True" Foreground="White" Height="50">
+                    <TextBlock Height="65">
+                        <AccessText TextWrapping="Wrap"  
+                                    Text="Show trajectory (you can only change it before start)" Height="65"/>
+                    </TextBlock>
+                </CheckBox>
             </Grid>
         </GroupBox>
     </Grid>

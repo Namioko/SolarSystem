@@ -10,7 +10,7 @@ namespace SolarSystem.ObjectsInSpace
     {
         public readonly Orbit Orbit;
         public Ellipse ObjectEllipse { get; set; }
-        public SolidColorBrush ObjecttBrush { get; set; }
+        public SolidColorBrush ObjectBrush { get; set; }
         private readonly ICalculator _calculator;
 
         protected SpaceObject(string name, double mass, double speed, double acceleration, 
