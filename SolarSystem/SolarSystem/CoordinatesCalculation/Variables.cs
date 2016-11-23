@@ -7,5 +7,7 @@
         public static int RadiusOrbitScale { get; set; }
         
         public static double MonthDurationInSecs { get; set; }
+
+        public static double CometHalleyMass { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using SolarSystem.CoordinatesCalculation;
 
 namespace SolarSystem.ObjectsInSpace
 {
-    public abstract class SpaceObject : ICelestialBody
+    public abstract class SpaceObject
     {
         public readonly Orbit Orbit;
         public Ellipse ObjectEllipse { get; set; }
@@ -26,6 +26,8 @@ namespace SolarSystem.ObjectsInSpace
             _calculator = calculator;
         }
 
+        protected SpaceObject() { }
+
         protected SpaceObject(string name, double mass, double radius, Orbit orbit, double monthsPerOneTurn, ICalculator calculator)
         {
             Name = name;
@@ -36,28 +38,23 @@ namespace SolarSystem.ObjectsInSpace
             _calculator = calculator;
         }
 
-        public string Name { get; }
+        public string Name { get; private set; }
 
-        public double Mass { get; }
+        public double Mass { get; set; }
 
-        public double Speed { get; }
+        public double Speed { get; private set; }
 
-        public double Acceleration { get; }
+        public double Acceleration { get; private set; }
 
         public Point Coordinates { get; private set; }
 
-        public double Radius { get; }
+        public double Radius { get; private set; }
 
-        public double MonthsPerOneTurn { get; }
+        public double MonthsPerOneTurn { get; set; }
 
         public virtual void ChangePosition(double time)
         {
             Coordinates = _calculator.CalculateCoordinates((time / Variables.MonthDurationInSecs) % MonthsPerOneTurn, MonthsPerOneTurn, Orbit);
-        }
-
-        public virtual void Update()
-        {
-            throw new NotImplementedException();
         }
     }
 }

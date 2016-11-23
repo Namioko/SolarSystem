@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace SolarSystem.ObjectsInSpace
 {
-    public class Sun : ICelestialBody
+    public class Sun
     {
         public Sun(double mass, Point coordinates, double radius)
         {
@@ -17,10 +17,5 @@ namespace SolarSystem.ObjectsInSpace
         public Point Coordinates { get; }
 
         public double Radius { get; }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
