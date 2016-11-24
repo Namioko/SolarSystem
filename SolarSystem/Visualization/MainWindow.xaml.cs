@@ -24,6 +24,7 @@ namespace Visualization
             InitializeComponent();
             legendGroupBox.Visibility = Visibility.Hidden;
             closeLegendButton.Visibility = Visibility.Hidden;
+            showTrajectoryCheckBox.IsEnabled = true;
             Variables.EarthRadius = 10;
             Variables.RadiusOrbitScale = 100;
             zoomButton_Clicked(new object(), null);
@@ -123,7 +124,7 @@ namespace Visualization
             #endregion
 
             #region Comet Halley
-            cometHalley = new Comet("Comet Halley", Variables.CometHalleyMass, 7.353 * 0.1 * Variables.EarthRadius, new Orbit(17.83414 * earth.Orbit.BigSemiaxis, 0.9671429, new Point(sun.Coordinates.X - /*16.45*/ 17.248 * earth.Orbit.BigSemiaxis , sun.Coordinates.Y /*- 5.187* earth.Orbit.BigSemiaxis*/)), 903.6, new CometCalculator());
+            cometHalley = new Comet("Comet Halley", Variables.CometHalleyMass, 7.353 * 0.1 * Variables.EarthRadius, new Orbit(17.83414 * earth.Orbit.BigSemiaxis, 0.9671429, new Point(sun.Coordinates.X - /*16.45*/ 17.248 * earth.Orbit.BigSemiaxis , sun.Coordinates.Y /*- 5.187* earth.Orbit.BigSemiaxis*/)), 903.6, new StandardCalculator());
             var cometHalleyBrush = new SolidColorBrush { Color = Color.FromArgb(255, 255, 236, 139) };
             SettingObjectsOnCanvas(cometHalley, cometHalleyBrush);
             #endregion
@@ -254,7 +255,7 @@ namespace Visualization
             };
 
             if(o is Comet)
-                newTrajectory.StrokeDashArray = new DoubleCollection(new double[] {4, 2});
+                newTrajectory.StrokeDashArray = new DoubleCollection(new double[] {8, 2});
 
             var rotateTransform = new RotateTransform(o.Orbit.Angle);
             newTrajectory.RenderTransform = rotateTransform;

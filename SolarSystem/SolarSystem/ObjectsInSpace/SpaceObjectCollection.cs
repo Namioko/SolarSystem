@@ -28,6 +28,10 @@ namespace SolarSystem.ObjectsInSpace
             return ((IEnumerable<SpaceObject>)_innerList).GetEnumerator();
         }
 
-        public SpaceObject this[int i] => _innerList.ElementAt(i);
+        public SpaceObject this[int i]
+        {
+            get { return _innerList.ElementAt(i); }
+            set { _innerList[i] = value; }
+        }
     }
 }

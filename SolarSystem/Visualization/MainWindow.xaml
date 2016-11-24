@@ -19,10 +19,10 @@
                 <Slider x:Name="secondsSlider" HorizontalAlignment="Right" Margin="0,155,40,0" VerticalAlignment="Top" Width="120" SmallChange="0.01" SnapsToDevicePixels="True" ValueChanged="slider_ValueChanged" RenderTransformOrigin="0.5,0.5" Minimum="0.5" TickPlacement="BottomRight" TickFrequency="0.01" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Maximum="5"/>
                 <Button x:Name="zoomButton" Content="Zoom out" HorizontalAlignment="Right" Margin="0,205,80,0" VerticalAlignment="Top" Click="zoomButton_Clicked"/>
                 <Label x:Name="labelSlider" Content="Seconds per month:" HorizontalAlignment="Left" Margin="40,130,0,0" VerticalAlignment="Top" Width="118" Foreground="White"/>
-                <CheckBox x:Name="showTrajectoryCheckBox" HorizontalAlignment="Left" Margin="20,447,0,0" VerticalAlignment="Top" Width="150" Checked="showTrajectoryCheckBox_Checked" Unchecked="showTrajectoryCheckBox_Unchecked" IsChecked="True" Foreground="White" Height="50">
-                    <TextBlock Height="65">
+                <CheckBox x:Name="showTrajectoryCheckBox" HorizontalAlignment="Left" Margin="20,460,0,0" VerticalAlignment="Top" Width="150" Checked="showTrajectoryCheckBox_Checked" Unchecked="showTrajectoryCheckBox_Unchecked" IsChecked="True" Foreground="White" Height="37" Background="Black">
+                    <TextBlock Height="40">
                         <AccessText TextWrapping="Wrap"  
-                                    Text="Show trajectory (you can only change it before start)" Height="65"/>
+                                    Text="Show trajectory (you can only change it before start)" Height="35"/>
                     </TextBlock>
                 </CheckBox>
                 <GroupBox x:Name="cometGroupBox" Header="Comet parameters" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Height="200" Width="170" Foreground="White">

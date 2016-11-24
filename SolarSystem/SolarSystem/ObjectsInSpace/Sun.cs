@@ -12,10 +12,10 @@ namespace SolarSystem.ObjectsInSpace
             Radius = radius;
         }
 
-        public double Mass { get; }
+        public double Mass { get; set; }
 
-        public Point Coordinates { get; }
+        public Point Coordinates { get; set; }
 
-        public double Radius { get; }
+        public double Radius { get; set; }
     }
 }
