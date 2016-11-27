@@ -13,3 +13,6 @@ C:\GitHub\SolarSystem\SolarSystem\Visualization\obj\Debug\Visualization.Properti
 C:\GitHub\SolarSystem\SolarSystem\Visualization\obj\Debug\Visualization.csproj.GenerateResource.Cache
 C:\GitHub\SolarSystem\SolarSystem\Visualization\obj\Debug\Visualization.exe
 C:\GitHub\SolarSystem\SolarSystem\Visualization\obj\Debug\Visualization.pdb
+C:\SolarSystem\SolarSystem\Visualization\bin\Debug\Visualization.exe.config
+C:\SolarSystem\SolarSystem\Visualization\obj\Debug\Visualization.exe
+C:\SolarSystem\SolarSystem\Visualization\obj\Debug\Visualization.pdb
