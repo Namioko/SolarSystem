@@ -17,7 +17,14 @@ namespace Visualization
 
         private readonly SolidColorBrush _trajectoryBrush = new SolidColorBrush(Color.FromRgb(255,255,255));
 
-        private Comet cometHalley = new Comet(); 
+        private readonly Comet _cometHalley = new Comet();
+
+        private bool _rendering;
+        private bool _firstRound = true;
+        private bool _isTrajectoryOn = true;
+
+        const double ScaleRate = 5;
+        private bool _isZoomed = true;
 
         public MainWindow()
         {
@@ -27,8 +34,12 @@ namespace Visualization
             showTrajectoryCheckBox.IsEnabled = true;
             Variables.EarthRadius = 10;
             Variables.RadiusOrbitScale = 100;
+            Variables.EarthBigSemiaxis = 5*Variables.RadiusOrbitScale;
             zoomButton_Clicked(new object(), null);
-            
+
+            var ticks = new DoubleCollection { 0.01, 5 };
+            secondsSlider.Ticks = ticks;
+
             #region Sun
             var sun = new Sun(332940, new Point(spaceCanvas.Width / 2 + spaceCanvas.Width / 8, spaceCanvas.Height / 2 - spaceCanvas.Height / 8), 14 * Variables.EarthRadius);
             var sunEllipse = new Ellipse
@@ -43,113 +54,121 @@ namespace Visualization
 
             Canvas.SetLeft(sunEllipse, sun.Coordinates.X - sun.Radius);
             Canvas.SetBottom(sunEllipse, sun.Coordinates.Y - sun.Radius);
-            #endregion
 
-            #region Earth
-            var earth = new Planet("Earth", 59.8, Variables.EarthRadius, new Orbit(5 * Variables.RadiusOrbitScale, 0.017, sun.Coordinates), 12, new StandardCalculator());
-            var earthBrush = new SolidColorBrush { Color = Color.FromArgb(255, 0, 255, 255) };
-            SettingObjectsOnCanvas(earth, earthBrush);
+            spaceCanvas.Children.Add(sunEllipse);
             #endregion
-
+            
             #region Mercury
-            var mercury = new Planet("Mercury", 3.3, 0.38 * Variables.EarthRadius, new Orbit(0.3871 * earth.Orbit.BigSemiaxis, 0.205, sun.Coordinates), 2.9, new StandardCalculator());
+            var mercury = new Planet("Mercury", 3.3, 0.38 * Variables.EarthRadius, new Orbit(0.3871 * Variables.EarthBigSemiaxis, 0.205, sun.Coordinates), 2.9, new StandardCalculator());
             var mercuryBrush = new SolidColorBrush {Color = Color.FromArgb(255, 95, 54, 65)};
             SettingObjectsOnCanvas(mercury, mercuryBrush);
+            _system.AddBody(mercury);
             #endregion
 
             #region Venus
-            var venus = new Planet("Venus", 49, 0.95 * Variables.EarthRadius, new Orbit(0.7233 * earth.Orbit.BigSemiaxis, 0.007, sun.Coordinates), 7.49, new StandardCalculator());
+            var venus = new Planet("Venus", 49, 0.95 * Variables.EarthRadius, new Orbit(0.7233 * Variables.EarthBigSemiaxis, 0.007, sun.Coordinates), 7.49, new StandardCalculator());
             var venusBrush = new SolidColorBrush { Color = Color.FromArgb(255, 189, 164, 166) };
             SettingObjectsOnCanvas(venus, venusBrush);
+            _system.AddBody(venus);
+            #endregion
+
+            #region Earth
+            var earth = new Planet("Earth", 59.8, Variables.EarthRadius, new Orbit(Variables.EarthBigSemiaxis, 0.017, sun.Coordinates), 12, new StandardCalculator());
+            var earthBrush = new SolidColorBrush { Color = Color.FromArgb(255, 0, 255, 255) };
+            SettingObjectsOnCanvas(earth, earthBrush);
+            _system.AddBody(earth);
             #endregion
 
             #region Mars
-            var mars = new Planet("Mars", 6.44, 0.53 * Variables.EarthRadius, new Orbit(1.5273 * earth.Orbit.BigSemiaxis, 0.094, sun.Coordinates), 22.9, new StandardCalculator());
+            var mars = new Planet("Mars", 6.44, 0.53 * Variables.EarthRadius, new Orbit(1.5273 * Variables.EarthBigSemiaxis, 0.094, sun.Coordinates), 22.9, new StandardCalculator());
             var marsBrush = new SolidColorBrush { Color = Color.FromArgb(255, 174, 15, 2) };
             SettingObjectsOnCanvas(mars, marsBrush);
+            _system.AddBody(mars);
             #endregion
 
             #region Jupiter
-            var jupiter = new Planet("Jupiter", 19000, 11.2 * Variables.EarthRadius, new Orbit(5.2028 * earth.Orbit.BigSemiaxis, 0.049, sun.Coordinates), 144.3, new StandardCalculator());
+            var jupiter = new Planet("Jupiter", 19000, 11.2 * Variables.EarthRadius, new Orbit(5.2028 * Variables.EarthBigSemiaxis, 0.049, sun.Coordinates), 144.3, new StandardCalculator());
             var jupiterBrush = new SolidColorBrush { Color = Color.FromArgb(255, 95, 54, 44) };
             SettingObjectsOnCanvas(jupiter, jupiterBrush);
+            _system.AddBody(jupiter);
             #endregion
 
             #region Saturn
-            var saturn = new Planet("Saturn", 5680, 9.45 * Variables.EarthRadius, new Orbit(9.5388 * earth.Orbit.BigSemiaxis, 0.057, sun.Coordinates), 358.4, new StandardCalculator());
+            var saturn = new Planet("Saturn", 5680, 9.45 * Variables.EarthRadius, new Orbit(9.5388 * Variables.EarthBigSemiaxis, 0.057, sun.Coordinates), 358.4, new StandardCalculator());
             var saturnBrush = new SolidColorBrush { Color = Color.FromArgb(255, 86, 75, 52) };
             SettingObjectsOnCanvas(saturn, saturnBrush);
+            _system.AddBody(saturn);
             #endregion
 
             #region Uranus
-            var uranus = new Planet("Uranus", 870, 4.3 * Variables.EarthRadius, new Orbit(19.1914 * earth.Orbit.BigSemiaxis, 0.046, sun.Coordinates), 1022, new StandardCalculator());
+            var uranus = new Planet("Uranus", 870, 4.3 * Variables.EarthRadius, new Orbit(19.1914 * Variables.EarthBigSemiaxis, 0.046, sun.Coordinates), 1022, new StandardCalculator());
             var uranusBrush = new SolidColorBrush { Color = Color.FromArgb(255, 52, 131, 226) };
             SettingObjectsOnCanvas(uranus, uranusBrush);
+            _system.AddBody(uranus);
             #endregion
 
             #region Neptune
-            var neptune = new Planet("Neptune", 1030, 3.88 * Variables.EarthRadius, new Orbit(30.0611 * earth.Orbit.BigSemiaxis, 0.011, sun.Coordinates), 2005, new StandardCalculator());
+            var neptune = new Planet("Neptune", 1030, 3.88 * Variables.EarthRadius, new Orbit(30.0611 * Variables.EarthBigSemiaxis, 0.011, sun.Coordinates), 2005, new StandardCalculator());
             var neptuneBrush = new SolidColorBrush { Color = Color.FromArgb(255, 36, 47, 251) };
             SettingObjectsOnCanvas(neptune, neptuneBrush);
+            _system.AddBody(neptune);
             #endregion
 
             #region Moon
-            var moon = new Moon("Moon", 0.735, 0.273 * Variables.EarthRadius, new Orbit(0.00257 * earth.Orbit.BigSemiaxis + earth.Radius, 0.0549, earth.Coordinates), 0.91, new StandardCalculator(), earth);
+            var moon = new Moon("Moon", 0.735, 0.273 * Variables.EarthRadius, new Orbit(0.00257 * Variables.EarthBigSemiaxis + Variables.EarthRadius, 0.0549, earth.Coordinates), 0.91, new StandardCalculator(), earth);
             var moonBrush = new SolidColorBrush { Color = Color.FromArgb(255, 133, 133, 133) };
             SettingObjectsOnCanvas(moon, moonBrush);
+            _system.AddBody(moon);
             #endregion
 
             #region Phobos
-            var phobos = new Moon("Phobos", 1.072 * Math.Pow(10, -7), 0.006 * moon.Radius * 100, new Orbit(6.27 * 0.01 * earth.Orbit.BigSemiaxis + mars.Radius, 0.0167, mars.Coordinates), 0.009, new StandardCalculator(), mars);
+            var phobos = new Moon("Phobos", 1.072 * Math.Pow(10, -7), 0.006 * moon.Radius * 100, new Orbit(6.27 * 0.01 * Variables.EarthBigSemiaxis + mars.Radius, 0.0167, mars.Coordinates), 0.009, new StandardCalculator(), mars);
             var phobosBrush = new SolidColorBrush { Color = Color.FromArgb(255, 184, 184, 100) };
             SettingObjectsOnCanvas(phobos, phobosBrush);
+            _system.AddBody(phobos);
             #endregion
 
             #region Deimos
-            var deimos = new Moon("Deimos", 1.48 * Math.Pow(10, -8), 0.004 * moon.Radius * 100, new Orbit(7.23 * 0.01 * earth.Orbit.BigSemiaxis + mars.Radius, 0.0002, mars.Coordinates), 0.01, new StandardCalculator(), mars);
+            var deimos = new Moon("Deimos", 1.48 * Math.Pow(10, -8), 0.004 * moon.Radius * 100, new Orbit(7.23 * 0.01 * Variables.EarthBigSemiaxis + mars.Radius, 0.0002, mars.Coordinates), 0.01, new StandardCalculator(), mars);
             var deimosBrush = new SolidColorBrush { Color = Color.FromArgb(255, 200, 133, 100) };
             SettingObjectsOnCanvas(deimos, deimosBrush);
+            _system.AddBody(deimos);
             #endregion
 
             #region Titan
-            var titan = new Moon("Titan", 1.3452, 1.48 * moon.Radius, new Orbit(0.008 * earth.Orbit.BigSemiaxis + saturn.Radius, 0.0288, saturn.Coordinates), 0.514, new StandardCalculator(), saturn);
+            var titan = new Moon("Titan", 1.3452, 1.48 * moon.Radius, new Orbit(0.008 * Variables.EarthBigSemiaxis + saturn.Radius, 0.0288, saturn.Coordinates), 0.514, new StandardCalculator(), saturn);
             var titanBrush = new SolidColorBrush { Color = Color.FromArgb(255, 150, 180, 150) };
             SettingObjectsOnCanvas(titan, titanBrush);
+            _system.AddBody(titan);
             #endregion
 
             #region Ganymede
-            var ganymede = new Moon("Ganymede", 1.4819, 0.413 * earth.Radius, new Orbit(0.0071 * earth.Orbit.BigSemiaxis + jupiter.Radius, 0.0013, jupiter.Coordinates), 0.23, new StandardCalculator(), jupiter);
+            var ganymede = new Moon("Ganymede", 1.4819, 0.413 * earth.Radius, new Orbit(0.0071 * Variables.EarthBigSemiaxis + jupiter.Radius, 0.0013, jupiter.Coordinates), 0.23, new StandardCalculator(), jupiter);
             var ganymedeBrush = new SolidColorBrush { Color = Color.FromArgb(255, 175, 170, 180) };
             SettingObjectsOnCanvas(ganymede, ganymedeBrush);
+            _system.AddBody(ganymede);
             #endregion
 
             #region Comet Halley
-            cometHalley = new Comet("Comet Halley", Variables.CometHalleyMass, 7.353 * 0.1 * Variables.EarthRadius, new Orbit(17.83414 * earth.Orbit.BigSemiaxis, 0.9671429, new Point(sun.Coordinates.X - /*16.45*/ 17.248 * earth.Orbit.BigSemiaxis , sun.Coordinates.Y /*- 5.187* earth.Orbit.BigSemiaxis*/)), 903.6, new StandardCalculator());
+            _cometHalley = new Comet("Comet Halley", Variables.CometHalleyMass, 7.353 * 0.1 * Variables.EarthRadius, new Orbit(17.83414 * Variables.EarthBigSemiaxis, 0.9671429, new Point(sun.Coordinates.X - /*16.45*/ 17.248 * earth.Orbit.BigSemiaxis , sun.Coordinates.Y /*- 5.187* earth.Orbit.BigSemiaxis*/)), 903.6, new StandardCalculator());
             var cometHalleyBrush = new SolidColorBrush { Color = Color.FromArgb(255, 255, 236, 139) };
-            SettingObjectsOnCanvas(cometHalley, cometHalleyBrush);
+            SettingObjectsOnCanvas(_cometHalley, cometHalleyBrush);
+            _system.AddBody(_cometHalley);
             #endregion
 
-            _system.AddBody(mercury);
-            _system.AddBody(venus);
-            _system.AddBody(earth);
-            _system.AddBody(mars);
-            _system.AddBody(jupiter);
-            _system.AddBody(saturn);
-            _system.AddBody(uranus);
-            _system.AddBody(neptune);
-            _system.AddBody(moon);
-            _system.AddBody(phobos);
-            _system.AddBody(deimos);
-            _system.AddBody(titan);
-            _system.AddBody(ganymede);
-            _system.AddBody(cometHalley);
+            FillLegend();
+        }
 
+        private void FillLegend()
+        {
             int i = -750;
             foreach (var obj in _system)
             {
-                var tempEllipse = new Ellipse();
-                tempEllipse.Margin = new Thickness(-145, i, 0, 0);
-                tempEllipse.Height = 47;
+                var tempEllipse = new Ellipse
+                {
+                    Margin = new Thickness(-145, i, 0, 0),
+                    Height = 47
+                };
                 tempEllipse.Width = tempEllipse.Height;
                 tempEllipse.Fill = obj.ObjectBrush;
                 var tempLabel = new Label
@@ -158,20 +177,15 @@ namespace Visualization
                     Margin = new Thickness(70, i, 0, 0),
                     Height = 50,
                     Width = 150,
-                    FontSize = 20
+                    FontSize = 20,
+                    Foreground = new SolidColorBrush { Color = Color.FromArgb(255, 255, 255, 255) }
                 };
-                tempLabel.Foreground = new SolidColorBrush { Color = Color.FromArgb(255, 255, 255, 255) };
                 legendGrid.Children.Add(tempEllipse);
                 legendGrid.Children.Add(tempLabel);
                 i += 20 + (int)tempEllipse.Height * 2;
             }
-            
-            var ticks = new DoubleCollection { 0.01, 5 };
-            secondsSlider.Ticks = ticks;
-
-            spaceCanvas.Children.Add(sunEllipse);
         }
-        
+
         private void SettingObjectsOnCanvas(SpaceObject spaceObject, SolidColorBrush brushForPlanet)
         {
             var spaceObjectEllipse = new Ellipse
@@ -189,10 +203,6 @@ namespace Visualization
             Canvas.SetBottom(spaceObjectEllipse, spaceObject.Coordinates.Y - spaceObject.Radius);
         }
 
-        private bool _rendering;
-        private bool _firstRound = true;
-        private bool _isTrajectoryOn = true;
-
         private void startButton_Click(object sender, RoutedEventArgs e)
         {
             if (_rendering) return;
@@ -209,17 +219,8 @@ namespace Visualization
 
         private void RenderFrame(object sender, EventArgs e)
         {
-            if (_firstRound && _isTrajectoryOn)
-            {
-                foreach (var o in _system.OfType<Planet>())
-                {
-                    DrawTrajectoryByEllipse(o);
-                }
-                foreach (var o in _system.OfType<Comet>())
-                {
-                    DrawTrajectoryByEllipse(o);
-                }
-            }
+            if(_firstRound)
+                DrawTrajectories();
 
             foreach (var o in _system)
             {
@@ -232,17 +233,44 @@ namespace Visualization
 
                 Canvas.SetLeft(newEllipsePoint, o.Coordinates.X - newEllipsePoint.Width/2);
                 Canvas.SetBottom(newEllipsePoint, o.Coordinates.Y - newEllipsePoint.Width/2);
-                
+
+                if (o is Moon)
+                {
+                    var moon = o as Moon;
+                    moon.Orbit.CenterSpacePoint = moon.CentralObject.Coordinates;
+                }
+
                 spaceCanvas.Children.Add(newEllipsePoint);
+
                 if (_firstRound) continue;
                 const int countOfObjectsWithoutSun = 8 + 5 + 1; //Planets + their moons + comet Halley
-                var moon = o as Moon;
-                if (moon != null)
-                    moon.Orbit.CenterSpacePoint = moon.CentralObject.Coordinates;
                 spaceCanvas.Children.RemoveAt(spaceCanvas.Children.Count - countOfObjectsWithoutSun - 1);
             }
 
             _firstRound = false;
+        }
+
+        private void DrawTrajectories()
+        {
+            if (!_isTrajectoryOn) return;
+            DrawPlanetTrajectories();
+            DrawCometTrajectories();
+        }
+
+        private void DrawCometTrajectories()
+        {
+            foreach (var o in _system.OfType<Comet>())
+            {
+                DrawTrajectoryByEllipse(o);
+            }
+        }
+
+        private void DrawPlanetTrajectories()
+        {
+            foreach (var o in _system.OfType<Planet>())
+            {
+                DrawTrajectoryByEllipse(o);
+            }
         }
 
         private void DrawTrajectoryByEllipse(SpaceObject o)
@@ -255,7 +283,7 @@ namespace Visualization
             };
 
             if(o is Comet)
-                newTrajectory.StrokeDashArray = new DoubleCollection(new double[] {8, 2});
+                newTrajectory.StrokeDashArray = new DoubleCollection(new double[] {16, 4});
 
             var rotateTransform = new RotateTransform(o.Orbit.Angle);
             newTrajectory.RenderTransform = rotateTransform;
@@ -273,11 +301,9 @@ namespace Visualization
             _timer.StopCalculating();
         }
 
-        const double ScaleRate = 5;
-        private bool _isZoomed = true;
         private void zoomButton_Clicked(object sender, RoutedEventArgs e)
         {
-            ScaleTransform st = new ScaleTransform();
+            var st = new ScaleTransform();
             spaceCanvas.RenderTransform = st;
             if (_isZoomed)
             {
@@ -313,7 +339,6 @@ namespace Visualization
         private void openLegendButton_Click(object sender, RoutedEventArgs e)
         {
             legendGroupBox.Visibility = Visibility.Visible;
-            closeLegendButton.Content = "<<";
             closeLegendButton.Visibility = Visibility.Visible;
             openLegendButton.Visibility = Visibility.Hidden;
         }
@@ -327,12 +352,12 @@ namespace Visualization
 
         private void massSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            cometHalley.Mass = e.NewValue * Math.Pow(10, -9);
+            _cometHalley.Mass = e.NewValue * Math.Pow(10, -9);
         }
 
         private void SpeedSlider_OnValueChangedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            cometHalley.MonthsPerOneTurn = e.NewValue * 12;
+            _cometHalley.MonthsPerOneTurn = e.NewValue * 12;
         }
     }
 }

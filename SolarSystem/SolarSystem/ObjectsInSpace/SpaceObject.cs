@@ -13,19 +13,6 @@ namespace SolarSystem.ObjectsInSpace
         public SolidColorBrush ObjectBrush { get; set; }
         private readonly ICalculator _calculator;
 
-        protected SpaceObject(string name, double mass, double speed, double acceleration, 
-            double radius, Orbit orbit, double monthsPerOneTurn, ICalculator calculator)
-        {
-            Name = name;
-            Mass = mass;
-            Speed = speed;
-            Acceleration = acceleration;
-            Radius = radius;
-            Orbit = orbit;
-            MonthsPerOneTurn = monthsPerOneTurn;
-            _calculator = calculator;
-        }
-
         protected SpaceObject() { }
 
         protected SpaceObject(string name, double mass, double radius, Orbit orbit, double monthsPerOneTurn, ICalculator calculator)
@@ -41,10 +28,6 @@ namespace SolarSystem.ObjectsInSpace
         public string Name { get; private set; }
 
         public double Mass { get; set; }
-
-        public double Speed { get; private set; }
-
-        public double Acceleration { get; private set; }
 
         public Point Coordinates { get; private set; }
 

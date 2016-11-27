@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SolarSystem.CoordinatesCalculation.StandardCalculator" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13" Y="4.5" Width="1.5" />
+    <Position X="11" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CoordinatesCalculation\StandardCalculator.cs</FileName>
@@ -9,56 +9,56 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SolarSystem.CoordinatesCalculation.Timer" Collapsed="true">
-    <Position X="11.25" Y="1.5" Width="1.5" />
+    <Position X="9.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAgAACAEIAAAAAABAgAAAAEAAAAAAgAAAA=</HashCode>
       <FileName>CoordinatesCalculation\Timer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SolarSystem.CoordinatesCalculation.Variables">
-    <Position X="13" Y="1.5" Width="1.5" />
+  <Class Name="SolarSystem.CoordinatesCalculation.Variables" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAEAAAAAAAAAAAAAAAAEAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AQAAAIAAAAAEAAAAAAAAAAAAAAAAEAAAAAAAABAAAAA=</HashCode>
       <FileName>CoordinatesCalculation\Variables.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SolarSystem.ObjectsInSpace.Comet" Collapsed="true">
-    <Position X="2.5" Y="1.75" Width="1.5" />
+    <Position X="0.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ObjectsInSpace\Comet.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SolarSystem.ObjectsInSpace.Moon" Collapsed="true">
-    <Position X="4.75" Y="1.75" Width="1.5" />
+    <Position X="2.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>ObjectsInSpace\Moon.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SolarSystem.ObjectsInSpace.Orbit" Collapsed="true">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="7.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAEAAAIAAAAAAAAAAAABAAAAEAAAAAAAAA=</HashCode>
       <FileName>ObjectsInSpace\Orbit.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SolarSystem.ObjectsInSpace.Planet" Collapsed="true">
-    <Position X="7" Y="1.75" Width="1.5" />
+    <Position X="5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ObjectsInSpace\Planet.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SolarSystem.ObjectsInSpace.SpaceObject" Collapsed="true">
-    <Position X="4.75" Y="0.5" Width="1.5" />
+    <Position X="2.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAIAQBAAAAAAAAAAAKAQBIAAAAAAAAAAEAACAAEA=</HashCode>
+      <HashCode>AAAIAIAQBAAAAAAAAAAAKAQAIAAAAAAAAAAAAACAAEA=</HashCode>
       <FileName>ObjectsInSpace\SpaceObject.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SolarSystem.ObjectsInSpace.SpaceObjectCollection" BaseTypeListCollapsed="true">
-    <Position X="11.25" Y="3.25" Width="1.5" />
+  <Class Name="SolarSystem.ObjectsInSpace.SpaceObjectCollection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAABAICAAAAAAQAAAAAAAEAAAAAABAAAA=</HashCode>
       <FileName>ObjectsInSpace\SpaceObjectCollection.cs</FileName>
@@ -66,14 +66,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SolarSystem.ObjectsInSpace.Sun" Collapsed="true">
-    <Position X="9.5" Y="1.5" Width="1.5" />
+    <Position X="7.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAACAAAA=</HashCode>
       <FileName>ObjectsInSpace\Sun.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="SolarSystem.CoordinatesCalculation.ICalculator">
-    <Position X="9.5" Y="2.75" Width="1.5" />
+  <Interface Name="SolarSystem.CoordinatesCalculation.ICalculator" Collapsed="true">
+    <Position X="7.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CoordinatesCalculation\ICalculator.cs</FileName>
