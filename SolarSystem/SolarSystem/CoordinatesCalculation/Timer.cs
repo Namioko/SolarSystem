@@ -49,6 +49,7 @@ namespace SolarSystem.CoordinatesCalculation
 
         public void StopCalculating()
         {
+            _timer.Tick -= NotifyObjects;
             _timer.Stop();
             _watch.Stop();
         }
