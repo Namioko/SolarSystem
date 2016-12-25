@@ -12,14 +12,14 @@
         <ScrollViewer x:Name="spaceScroll" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" OverridesDefaultStyle="True">
             <Canvas x:Name="spaceCanvas" Height="5200" Grid.IsSharedSizeScope="True" Width="4000" ScrollViewer.CanContentScroll="True"/>
         </ScrollViewer>
-        <GroupBox x:Name="menuGroupBox" Header="" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Height="475" Width="200">
+        <GroupBox x:Name="menuGroupBox" Header="" HorizontalAlignment="Left" Margin="49,50,0,0" VerticalAlignment="Top" Height="475" Width="200">
             <Grid HorizontalAlignment="Left" Width="200" Margin="0,0,-12,-3">
                 <Button x:Name="startButton" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="startButton_Click" Margin="0,20,65,0"/>
-                <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Right" Margin="0,80,65,0" VerticalAlignment="Top" Width="75" Click="pauseButton_Click"/>
+                <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Right" Margin="0,57,65,0" VerticalAlignment="Top" Width="75" Click="pauseButton_Click"/>
                 <Slider x:Name="secondsSlider" HorizontalAlignment="Right" Margin="0,155,40,0" VerticalAlignment="Top" Width="120" SmallChange="0.01" SnapsToDevicePixels="True" ValueChanged="slider_ValueChanged" RenderTransformOrigin="0.5,0.5" Minimum="0.5" TickPlacement="BottomRight" TickFrequency="0.01" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Maximum="5"/>
                 <Button x:Name="zoomButton" Content="Zoom out" HorizontalAlignment="Right" Margin="0,205,80,0" VerticalAlignment="Top" Click="zoomButton_Clicked"/>
                 <Label x:Name="labelSlider" Content="Seconds per month:" HorizontalAlignment="Left" Margin="40,130,0,0" VerticalAlignment="Top" Width="118" Foreground="White"/>
-                <CheckBox x:Name="showTrajectoryCheckBox" HorizontalAlignment="Left" Margin="40,428,0,0" VerticalAlignment="Top" Width="150" Checked="showTrajectoryCheckBox_Checked" Unchecked="showTrajectoryCheckBox_Unchecked" IsChecked="True" Foreground="White" Height="37" Background="Black" ToolTip="Is changeable only on start">
+                <CheckBox x:Name="showTrajectoryCheckBox" HorizontalAlignment="Left" Margin="40,428,0,0" VerticalAlignment="Top" Width="150" Checked="showTrajectoryCheckBox_Checked" Unchecked="showTrajectoryCheckBox_Unchecked" IsChecked="True" Foreground="White" Height="37" Background="White" ToolTip="Is changeable only on start" BorderBrush="#FFA2A2A2">
                     <TextBlock Height="40">
                         <AccessText TextWrapping="Wrap"  
                                     Text="Show trajectory" Height="22" Width="98" ToolTip="Is changeable only on start"/>
@@ -27,12 +27,13 @@
                 </CheckBox>
                 <GroupBox x:Name="cometGroupBox" Header="Comet parameters" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Height="178" Width="170" Foreground="White">
                     <Grid HorizontalAlignment="Left" Height="163" Margin="10,10,-2,0" VerticalAlignment="Top" Width="150">
-                        <Slider x:Name="massSlider" HorizontalAlignment="Left" Margin="20,35,0,0" VerticalAlignment="Top" Width="105" SmallChange="0.1" SnapsToDevicePixels="True" ValueChanged="massSlider_ValueChanged" Minimum="0.5" TickPlacement="BottomRight" TickFrequency="0.1" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Maximum="5"/>
-                        <Label x:Name="massLabel" Content="Mass (*10^14 kg)" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="105" Foreground="White"/>
+                        <Slider x:Name="massSlider" HorizontalAlignment="Left" Margin="20,35,0,0" VerticalAlignment="Top" Width="105" SmallChange="0.1" ValueChanged="massSlider_ValueChanged" Minimum="0.5" TickPlacement="BottomRight" TickFrequency="0.1" AutoToolTipPlacement="BottomRight" Maximum="10" ToolTip="Is changeable only on start"/>
+                        <Label x:Name="massLabel" Content="Mass (*10^14 kg)" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="105" Foreground="White" ToolTip="Is changeable only on start"/>
                         <Label x:Name="speedLabel" Content="Initial speed (yrs/turn)" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="130" Foreground="White" ToolTip="Is changeable only on start"/>
-                        <Slider x:Name="speedSlider" HorizontalAlignment="Left" Margin="20,111,0,0" VerticalAlignment="Top" Width="105" SmallChange="0.1" SnapsToDevicePixels="True" ValueChanged="SpeedSlider_OnValueChangedSlider_ValueChanged" Minimum="50" TickPlacement="BottomRight" TickFrequency="0.1" AutoToolTipPlacement="BottomRight" AutoToolTipPrecision="2" Maximum="100" ToolTip="Is changeable only on start"/>
+                        <Slider x:Name="speedSlider" HorizontalAlignment="Left" Margin="20,111,0,0" VerticalAlignment="Top" Width="105" SmallChange="0.1" ValueChanged="SpeedSlider_OnValueChangedSlider_ValueChanged" Minimum="50" TickPlacement="BottomRight" TickFrequency="0.1" AutoToolTipPlacement="BottomRight" Maximum="100" ToolTip="Is changeable only on start"/>
                     </Grid>
                 </GroupBox>
+                <Button x:Name="resetButton" Content="Reset" HorizontalAlignment="Left" Margin="60,95,0,0" VerticalAlignment="Top" Width="75" Click="resetButton_Click"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="legendGroupBox" Header="" HorizontalAlignment="Right" Margin="0,50,70,0" VerticalAlignment="Top" Height="850" Width="250">

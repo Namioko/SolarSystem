@@ -1,5 +1,5 @@
-C:\GitHub\SolarSystem\SolarSystem\SolarSystem\bin\Debug\SolarSystem.dll
-C:\GitHub\SolarSystem\SolarSystem\SolarSystem\bin\Debug\SolarSystem.pdb
-C:\GitHub\SolarSystem\SolarSystem\SolarSystem\obj\Debug\SolarSystem.csprojResolveAssemblyReference.cache
-C:\GitHub\SolarSystem\SolarSystem\SolarSystem\obj\Debug\SolarSystem.dll
-C:\GitHub\SolarSystem\SolarSystem\SolarSystem\obj\Debug\SolarSystem.pdb
+C:\Users\Анна\Desktop\creatorsofabrandnewworld-solarsystem-e04645a2e3e6\SolarSystem\SolarSystem\bin\Debug\SolarSystem.dll
+C:\Users\Анна\Desktop\creatorsofabrandnewworld-solarsystem-e04645a2e3e6\SolarSystem\SolarSystem\bin\Debug\SolarSystem.pdb
+C:\Users\Анна\Desktop\creatorsofabrandnewworld-solarsystem-e04645a2e3e6\SolarSystem\SolarSystem\obj\Debug\SolarSystem.csprojResolveAssemblyReference.cache
+C:\Users\Анна\Desktop\creatorsofabrandnewworld-solarsystem-e04645a2e3e6\SolarSystem\SolarSystem\obj\Debug\SolarSystem.dll
+C:\Users\Анна\Desktop\creatorsofabrandnewworld-solarsystem-e04645a2e3e6\SolarSystem\SolarSystem\obj\Debug\SolarSystem.pdb

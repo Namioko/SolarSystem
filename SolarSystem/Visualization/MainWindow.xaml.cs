@@ -150,7 +150,7 @@ namespace Visualization
             #endregion
 
             #region Comet Halley
-            _cometHalley = new Comet("Comet Halley", Variables.CometHalleyMass, 7.353 * 0.1 * Variables.EarthRadius, new Orbit(17.83414 * Variables.EarthBigSemiaxis, 0.9671429, new Point(sun.Coordinates.X - /*16.45*/ 17.248 * earth.Orbit.BigSemiaxis , sun.Coordinates.Y /*- 5.187* earth.Orbit.BigSemiaxis*/)), 903.6, new StandardCalculator());
+            _cometHalley = new Comet("Comet Halley", 2.2 * Math.Pow(10, -9), 7.353 * Variables.EarthRadius * 0.1 * _cometHalley.Mass * Math.Pow(10, 9), new Orbit(17.83414 * Variables.EarthBigSemiaxis, 0.9671429, new Point(sun.Coordinates.X - /*16.45*/ 17.248 * earth.Orbit.BigSemiaxis , sun.Coordinates.Y /*- 5.187* earth.Orbit.BigSemiaxis*/)), 903.6, new StandardCalculator());
             var cometHalleyBrush = new SolidColorBrush { Color = Color.FromArgb(255, 255, 236, 139) };
             SettingObjectsOnCanvas(_cometHalley, cometHalleyBrush);
             _system.AddBody(_cometHalley);
@@ -207,6 +207,7 @@ namespace Visualization
         {
             if (_rendering) return;
             showTrajectoryCheckBox.IsEnabled = false;
+            massSlider.IsEnabled = false;
             speedSlider.IsEnabled = false;
             CompositionTarget.Rendering += RenderFrame;
             _rendering = true;
@@ -358,6 +359,12 @@ namespace Visualization
         private void SpeedSlider_OnValueChangedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             _cometHalley.MonthsPerOneTurn = e.NewValue * 12;
+        }
+
+        private void resetButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+            System.Windows.Forms.Application.Restart();
         }
     }
 }
